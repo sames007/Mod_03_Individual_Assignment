@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.farmingdale.mod_03_individual_assignment.CardGameController"
+            prefWidth="900.0" prefHeight="540.0"
+            styleClass="root-pane">
+    <top>
+        <HBox alignment="CENTER" spacing="20" styleClass="top-bar">
+            <Button fx:id="findSolutionButton"
+                    text="Find a Solution"
+                    onAction="#handleFindSolution"
+                    styleClass="button" />
+            <TextField fx:id="extraField"
+                       promptText="Solution will appear here..."
+                       styleClass="text-field" />
+            <Button fx:id="refreshButton"
+                    text="Refresh"
+                    onAction="#handleRefresh"
+                    styleClass="button" />
+        </HBox>
+    </top>
+    <center>
+        <HBox alignment="CENTER" spacing="30" styleClass="cards-box">
+            <StackPane styleClass="card-container">
+                <ImageView fx:id="cardImage1" fitWidth="160" fitHeight="270" />
+            </StackPane>
+            <StackPane styleClass="card-container">
+                <ImageView fx:id="cardImage2" fitWidth="160" fitHeight="270" />
+            </StackPane>
+            <StackPane styleClass="card-container">
+                <ImageView fx:id="cardImage3" fitWidth="160" fitHeight="270" />
+            </StackPane>
+            <StackPane styleClass="card-container">
+                <ImageView fx:id="cardImage4" fitWidth="160" fitHeight="270" />
+            </StackPane>
+        </HBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" styleClass="bottom-bar">
+            <Text text="Enter an Expression:" styleClass="label"/>
+            <TextField fx:id="expressionField"
+                       promptText="e.g. (6+6)*12/9"
+                       styleClass="text-field"/>
+            <Button fx:id="verifyButton"
+                    text="Verify"
+                    onAction="#handleVerify"
+                    styleClass="button"/>
+        </HBox>
+    </bottom>
+</BorderPane>

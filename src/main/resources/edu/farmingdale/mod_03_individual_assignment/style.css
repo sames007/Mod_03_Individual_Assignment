@@ -1,0 +1,65 @@
+/* Main game scene container styling */
+.root-pane {
+    -fx-background-color: #B0C4DE; /* Light purple background gradient */
+    -fx-padding: 20; /* Space around the container */
+}
+
+/* Styling for the splash screen title text */
+.splash-title {
+    -fx-font-size: 64px;           /* Big font size */
+    -fx-font-weight: bold;         /* Bold text */
+    -fx-fill: white;              /* Text color white */
+    -fx-font-family: "Arial";      /* Font type Arial */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 2, 2); /* Shadow effect */
+    -fx-translate-x: -30px;        /* Moves the text 30px to the left */
+}
+
+/* Padding for top, center, and bottom containers */
+.top-bar, .cards-box, .bottom-bar {
+    -fx-padding: 15; /* Adds space inside these containers */
+}
+
+/* Styling for buttons */
+.button {
+    -fx-background-color: #6A5ACD; /* Button background color (bluish-purple) */
+    -fx-text-fill: white;          /* Button text color white */
+    -fx-font-weight: bold;         /* Bold text */
+    -fx-font-size: 14px;           /* Font size 14px */
+    -fx-cursor: hand;              /* Change cursor to hand when hovering */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2); /* Shadow effect for button */
+    -fx-padding: 10 20;            /* Padding inside the button */
+    -fx-background-radius: 5;      /* Rounded corners for the button */
+}
+
+/* Styling for text fields */
+.text-field {
+    -fx-font-size: 14px;           /* Font size inside text fields */
+    -fx-background-radius: 5;      /* Rounded corners for text fields */
+    -fx-border-radius: 5;          /* Rounded border for text fields */
+    -fx-border-color: #cccccc;     /* Light gray border */
+    -fx-border-width: 1;           /* Border thickness */
+    -fx-padding: 5;                /* Padding inside text fields */
+}
+
+/* Styling for labels (used on Labels) */
+.label {
+    -fx-font-size: 16px;           /* Font size 16px */
+    -fx-font-weight: bold;         /* Bold text */
+    -fx-fill: #663399;             /* Text color set to bluish-purple */
+}
+
+/* Styling for card container (the border around each card) */
+.card-container {
+    -fx-border-color: #7B68EE;     /* Border color for cards */
+    -fx-border-width: 3;           /* Border thickness */
+    -fx-border-style: solid;       /* Solid border style */
+    -fx-padding: 10;              /* Padding inside the card container */
+    -fx-pref-width: 250px;         /* Preferred width of the card container */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0, 2, 2); /* Shadow effect for the container */
+}
+
+/* Hover effect for card container */
+.card-container:hover {
+    -fx-border-color: #7B68EE;     /* Border color remains the same on hover */
+    -fx-border-width: 3;           /* Border thickness on hover */
+}
