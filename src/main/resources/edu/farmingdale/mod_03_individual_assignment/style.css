@@ -31,6 +31,11 @@
     -fx-background-radius: 5;      /* Rounded corners for the button */
 }
 
+/* Styling for button hover effect */
+.button:hover {
+    -fx-background-color: #483D8B; /* Darker shade for hover effect */
+}
+
 /* Styling for text fields */
 .text-field {
     -fx-font-size: 14px;           /* Font size inside text fields */
