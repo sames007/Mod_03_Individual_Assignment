@@ -1,32 +1,27 @@
-Card Game - 24: 
+# Card Game - 24
 
-A JavaFX game where players use four randomly selected cards and arithmetic operations to form an expression that evaluates to 24.
+**Card Game - 24** is a JavaFX game where players use four randomly selected cards along with arithmetic operations to form an expression that evaluates to 24.
 
+## Card Values
 
-1. Card Values:
-   
-   Number cards (2-10) keep their face value.
-   
-   Ace = 1, Jack = 11, Queen = 12, King = 13.
-   
+- **Number Cards (2–10):** Retain their face value.
+- **Face Cards:**
+   - **Ace:** 1
+   - **Jack:** 11
+   - **Queen:** 12
+   - **King:** 13
 
-3. How to Play:
-   
-   The game randomly selects four cards.
-   
-   Players must enter a valid arithmetic expression using all four cards exactly once.
-   
-   Allowed operations: *+, -, , / (parentheses can be used for grouping).
-   
-   The goal is to make the expression equal 24.
-   
+## How to Play
 
-5. Game Features:
-   
-   A text field for entering expressions.
-   
-   A "Verify" button to check if the solution is correct.
-   
-   A "Refresh" button to generate a new set of cards if needed.
-   
-   A message box to show results.
+1. The game randomly selects four cards.
+2. Players must create a valid arithmetic expression using all four cards exactly once.
+3. **Allowed operations:** Addition (`+`), Subtraction (`-`), Multiplication (`*`), and Division (`/`). Parentheses can be used for grouping.
+4. The goal is to form an expression that equals 24.
+
+## Game Features
+
+- **Input Field:** Enter your arithmetic expression.
+- **Verify Button:** Checks if your expression is correct.
+- **Refresh Button:** Generates a new set of cards.
+- **Message Box:** Displays results, hints, and error messages.
+- **Hints:** Up to 3 hints are provided per card deal. When the game is refreshed, hints are reset.
