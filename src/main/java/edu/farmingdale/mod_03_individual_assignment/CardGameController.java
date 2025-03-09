@@ -42,7 +42,9 @@ public class CardGameController {
 
     // Timer to detect user inactivity (10 seconds).
     private PauseTransition inactivityTimer;
-    // Tracks how many hints have been shown (max allowed is 3).
+    // Maximum number of hints allowed per card deal.
+    private static final int MAX_HINTS = 3;
+    // Tracks how many hints have been shown.
     private int hintIndex = 0;
 
     /**
@@ -74,7 +76,7 @@ public class CardGameController {
      */
     @FXML
     void handleRefresh(ActionEvent event) {
-        hintIndex = 0; // Reset hint count (allows 3 hints again for the new deal)
+        hintIndex = 0; // Reset hint count for the new deal
         Random rand = new Random();
         for (int i = 0; i < 4; i++) {
             currentCards[i] = rand.nextInt(52) + 1; // Random card number between 1 and 52
@@ -183,34 +185,34 @@ public class CardGameController {
 
     /**
      * Creates and shows a styled alert window.
-     * If the message is long or multiline, it uses a TextArea so text can be easily copied.
+     * If the message is long or multiline, it uses expandable content to show a TextArea.
      */
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = createStyledAlert(type, title, content);
         alert.showAndWait();
         // If there are still hints remaining, restart the inactivity timer.
-        if (hintIndex < 3) {
+        if (hintIndex < MAX_HINTS) {
             resetInactivityTimer();
         }
     }
 
     /**
      * Helper method to create an alert with our CSS style.
-     * Uses a TextArea for long messages and makes it editable for copy purposes.
+     * Uses expandable content (TextArea) for long messages.
      */
     private Alert createStyledAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         applyCssToDialog(alert);
-        // If content is long or has newlines, show it in a TextArea.
         if (content.contains("\n") || content.length() > 100) {
             TextArea textArea = new TextArea(content);
-            textArea.setEditable(true); // Allow copying text
+            textArea.setEditable(true);
             textArea.setWrapText(true);
-            textArea.setPrefWidth(480);
-            textArea.setPrefHeight(320);
-            alert.getDialogPane().setContent(textArea);
+            textArea.setMaxWidth(Double.MAX_VALUE);
+            textArea.setMaxHeight(Double.MAX_VALUE);
+            alert.getDialogPane().setExpandableContent(textArea);
+            alert.getDialogPane().setExpanded(true);
         } else {
             alert.setContentText(content);
         }
@@ -260,28 +262,32 @@ public class CardGameController {
      * When the game is refreshed, the hint counter resets.
      */
     private void getHintFromAPI() {
-        if (hintIndex >= 3) {
-            Platform.runLater(() -> showAlert(Alert.AlertType.INFORMATION, "Hint", "No more hints available for this card configuration."));
+        if (hintIndex >= MAX_HINTS) {
+            Platform.runLater(() -> showAlert(Alert.AlertType.INFORMATION, "Hint",
+                    "No more hints available for this card configuration."));
             return;
         }
         System.out.println("getHintFromAPI() triggered, hintIndex: " + hintIndex);
         // First show an advertisement before providing a hint.
         showAdvertisement(() -> {
-            if (hintIndex == 2) {
+            // Re-check the hint count inside the callback to avoid extra hints.
+            if (hintIndex >= MAX_HINTS) {
+                return;
+            }
+            if (hintIndex == MAX_HINTS - 1) {
                 // For the third hint, use our built-in solver.
                 String solution = getSolution();
                 Platform.runLater(() -> showAlert(Alert.AlertType.INFORMATION, "Hint", "Solution: " + solution));
                 hintIndex++;
-                if (hintIndex < 3) {
-                    inactivityTimer.playFromStart();
-                }
+                // Do not restart the inactivity timer for the final hint.
                 return;
             }
             // For hints 0 and 1, call the external Gemini API.
             Properties config = Helper.loadProperties();
             String apiKey = config.getProperty("API_KEY");
             if (apiKey == null || apiKey.isEmpty()) {
-                Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Config Error", "API key not found in config.properties."));
+                Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Config Error",
+                        "API key not found in config.properties."));
                 return;
             }
             String cardData = getCardRanks(currentCards).stream()
@@ -290,7 +296,6 @@ public class CardGameController {
             String promptMessage = (hintIndex == 0)
                     ? "You are a helpful assistant for the Card 24 game. For the cards: " + cardData + ", please give a small hint to help solve the game."
                     : "You are a helpful assistant for the Card 24 game. For the cards: " + cardData + ", please give another hint without giving the answer.";
-
             String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey;
             String jsonRequest = "{" +
                     "\"contents\": [{" +
@@ -319,7 +324,7 @@ public class CardGameController {
                         return null;
                     });
             hintIndex++; // Increase the hint counter
-            if (hintIndex < 3) {
+            if (hintIndex < MAX_HINTS) {
                 inactivityTimer.playFromStart();
             }
         });
