@@ -60,6 +60,30 @@
 
 /* Hover effect for card container */
 .card-container:hover {
-    -fx-border-color: #7B68EE;     /* Border color remains the same on hover */
+    -fx-border-color: #663399;     /* Border color remains the same on hover */
     -fx-border-width: 3;           /* Border thickness on hover */
+}
+
+/* Custom style for hint alert dialog */
+.hint-alert {
+    -fx-background-color: #B0C4DE;  /* Light purple background for the outer dialog */
+    -fx-border-color: #7B68EE;      /* Border color to match the card container border */
+    -fx-border-width: 2;            /* A thin border */
+    -fx-border-radius: 5;           /* Rounded corners */
+    -fx-background-radius: 5;       /* Rounded background */
+    -fx-padding: 10;               /* Some inner padding */
+    -fx-font-size: 14px;           /* Match the game’s font size */
+    -fx-text-fill: #663399;         /* Bluish-purple text color */
+}
+
+/* Ensure the TextArea inside the hint dialog uses the same background and text colors */
+.hint-alert .text-area {
+    -fx-control-inner-background: #B0C4DE; /* Set the TextArea's inner background */
+    -fx-background-color: #B0C4DE;         /* For extra safety, set the overall background */
+    -fx-text-fill: #663399;                /* Set the text color */
+    -fx-font-weight: normal;               /* Ensure text is not bold */
+}
+
+.dialog-pane .content.label {
+    -fx-font-weight: normal;
 }

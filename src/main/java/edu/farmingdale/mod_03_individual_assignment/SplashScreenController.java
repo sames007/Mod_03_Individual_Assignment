@@ -15,10 +15,6 @@ public class SplashScreenController {
         String splashPath = "/edu/farmingdale/mod_03_individual_assignment/splashscreenimage/splashscreen.png";
         // Load the image from the given path
         Image image = new Image(getClass().getResourceAsStream(splashPath));
-        // If there is an error loading the image, print an error message
-        if (image.isError()) {
-            System.err.println("Error loading splash image from: " + splashPath);
-        }
         // Set the loaded image in the splashImage view
         splashImage.setImage(image);
     }
